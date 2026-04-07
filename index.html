@@ -4,18 +4,28 @@
   <meta charset="UTF-8">
   <title>Générateur Visuels</title>
 
-  <link rel="stylesheet" href="instagram.css" id="theme-style">
+  <link rel="stylesheet" href="css/instagram.css" id="theme-style">
+
+  <!-- Police moderne -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800&display=swap" rel="stylesheet">
+
   <style>
     body {
-      font-family: Arial;
+      font-family: 'Montserrat', sans-serif;
       text-align: center;
       background: #f5f5f5;
+      margin: 0;
+      padding: 0;
     }
 
     .tabs button {
       margin: 10px;
       padding: 10px 20px;
       cursor: pointer;
+      border: none;
+      background: #222;
+      color: white;
+      border-radius: 5px;
     }
 
     .controls {
@@ -24,28 +34,43 @@
 
     canvas {
       border: 1px solid #666;
-      width: 360px;   /* Aperçu */
-      height: 450px;  /* Aperçu */
+      width: 360px;
+      height: 450px;
+      background: white;
     }
   </style>
 </head>
 <body>
 
   <div class="tabs">
-    <button onclick="switchTab('instagram', 'instagram.css')">Instagram</button>
-    <button onclick="switchTab('a3', 'a3.css')">A3</button>
-    <button onclick="switchTab('story', 'story.css')">Story</button>
+    <button onclick="switchTab('instagram', 'css/instagram.css')">Instagram</button>
+    <button onclick="switchTab('a3', 'css/a3.css')">A3</button>
+    <button onclick="switchTab('story', 'css/story.css')">Story</button>
   </div>
 
   <div class="controls">
-    <input type="text" id="titleInput" placeholder="Titre du visuel">
+    <select id="templateSelect">
+      <option value="resultats">Résultats</option>
+      <option value="programme">Programme</option>
+      <option value="nm2">NM2</option>
+      <option value="info">Info</option>
+    </select>
+
+    <br><br>
+
+    <input type="text" id="titleInput" placeholder="Titre (ligne 1)">
+    <input type="text" id="subtitleInput" placeholder="Sous‑titre (ligne 2)">
+    <br><br>
+
     <input type="file" id="imageInput" accept="image/*">
+    <br><br>
+
     <button onclick="generate()">Générer</button>
     <button onclick="download()">Télécharger</button>
   </div>
 
   <canvas id="canvas"></canvas>
 
-  <script src="app.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>
