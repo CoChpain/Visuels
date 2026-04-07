@@ -32,11 +32,19 @@
       margin: 20px 0;
     }
 
+    .controls select,
+    .controls input[type="text"],
+    .controls input[type="file"],
+    .controls button {
+      margin: 5px;
+    }
+
     canvas {
       border: 1px solid #666;
       width: 360px;
       height: 450px;
       background: white;
+      touch-action: none; /* pour le pinch sur mobile */
     }
   </style>
 </head>
@@ -55,15 +63,14 @@
       <option value="nm2">NM2</option>
       <option value="info">Info</option>
     </select>
-
-    <br><br>
+    <br>
 
     <input type="text" id="titleInput" placeholder="Titre (ligne 1)">
     <input type="text" id="subtitleInput" placeholder="Sous‑titre (ligne 2)">
-    <br><br>
+    <br>
 
     <input type="file" id="imageInput" accept="image/*">
-    <br><br>
+    <br>
 
     <button onclick="generate()">Générer</button>
     <button onclick="download()">Télécharger</button>
