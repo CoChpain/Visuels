@@ -13,12 +13,9 @@ function switchTab(format, cssFile) {
 
 function getCanvasSize() {
   switch (currentFormat) {
-    case "instagram":
-      return { width: 1080, height: 1350 };
-    case "a3":
-      return { width: 2480, height: 3508 };
-    case "story":
-      return { width: 1080, height: 1920 };
+    case "instagram": return { width: 1080, height: 1350 };
+    case "a3": return { width: 2480, height: 3508 };
+    case "story": return { width: 1080, height: 1920 };
   }
 }
 
@@ -30,11 +27,12 @@ function generate() {
   canvas.width = size.width;
   canvas.height = size.height;
 
-  // Fond blanc
-  ctx.fillStyle = "#ffffff";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  // --- IMAGE DE FOND ---
+  if (uploadedImg) {
+    ctx.drawImage(uploadedImg, imgX, imgY);
+  }
 
-  // Dégradé jaune bas → milieu
+  // --- DÉGRADÉ JAUNE ---
   const gradient = ctx.createLinearGradient(0, canvas.height, 0, canvas.height / 2);
   gradient.addColorStop(0, "rgba(255, 200, 0, 1)");
   gradient.addColorStop(1, "rgba(255, 200, 0, 0)");
@@ -42,22 +40,42 @@ function generate() {
   ctx.fillStyle = gradient;
   ctx.fillRect(0, canvas.height / 2, canvas.width, canvas.height / 2);
 
-  // Image uploadée
-  if (uploadedImg) {
-    ctx.drawImage(uploadedImg, imgX, imgY);
-  }
-
-  // Texte
+  // --- TEXTE ---
   const title = document.getElementById("titleInput").value;
+  const subtitle = document.getElementById("subtitleInput").value;
 
-  ctx.fillStyle = "#000";
-  ctx.font = "bold 80px Arial";
   ctx.textAlign = "center";
+  ctx.fillStyle = "#000";
 
-  ctx.fillText(title, canvas.width / 2, 120);
+  // Titre (gros)
+  ctx.font = "800 120px Montserrat";
+  ctx.fillText(title, canvas.width / 2, 150);
+
+  // Sous‑titre (plus petit)
+  ctx.font = "600 80px Montserrat";
+  ctx.fillText(subtitle, canvas.width / 2, 260);
+
+  // --- TEMPLATE (résultats, programme, etc.) ---
+  const template = document.getElementById("templateSelect").value;
+
+  ctx.font = "800 100px Montserrat";
+  ctx.fillStyle = "#111";
+
+  if (template === "resultats") {
+    ctx.fillText("RÉSULTATS", canvas.width / 2, canvas.height - 150);
+  }
+  if (template === "programme") {
+    ctx.fillText("PROGRAMME", canvas.width / 2, canvas.height - 150);
+  }
+  if (template === "nm2") {
+    ctx.fillText("NM2", canvas.width / 2, canvas.height - 150);
+  }
+  if (template === "info") {
+    ctx.fillText("INFO", canvas.width / 2, canvas.height - 150);
+  }
 }
 
-// Upload image
+// --- UPLOAD IMAGE ---
 document.getElementById("imageInput").addEventListener("change", function(e) {
   const file = e.target.files[0];
   if (!file) return;
@@ -76,7 +94,7 @@ document.getElementById("imageInput").addEventListener("change", function(e) {
   reader.readAsDataURL(file);
 });
 
-// Déplacement de l’image
+// --- DRAG & DROP IMAGE ---
 const canvas = document.getElementById("canvas");
 
 canvas.addEventListener("mousedown", e => {
@@ -107,7 +125,7 @@ canvas.addEventListener("mousemove", e => {
 canvas.addEventListener("mouseup", () => isDragging = false);
 canvas.addEventListener("mouseleave", () => isDragging = false);
 
-// Télécharger
+// --- DOWNLOAD ---
 function download() {
   const canvas = document.getElementById("canvas");
   const link = document.createElement("a");
@@ -116,5 +134,4 @@ function download() {
   link.click();
 }
 
-// Génération initiale
 generate();
