@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Générateur Visuels</title>
+
+  <link rel="stylesheet" href="css/instagram.css" id="theme-style">
+</head>
+<body>
+
+  <div class="tabs">
+    <button onclick="switchTab('instagram', 'css/instagram.css')">Instagram</button>
+    <button onclick="switchTab('a3', 'css/a3.css')">A3</button>
+    <button onclick="switchTab('story', 'css/story.css')">Story</button>
+  </div>
+
+  <div class="controls">
+    <input type="text" id="titleInput" placeholder="Titre du visuel">
+    <button onclick="generate()">Générer</button>
+    <button onclick="download()">Télécharger</button>
+  </div>
+
+  <canvas id="canvas"></canvas>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
