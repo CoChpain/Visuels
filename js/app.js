@@ -110,6 +110,7 @@ function generate() {
   const tagX = marginX;
   const tagY = canvas.height * 0.78;
 
+  
   ctx.fillStyle = "rgba(0,0,0,0.75)";
   roundRect(ctx, tagX, tagY, tagWidth, tagHeight, tagHeight * 0.4);
   ctx.fill();
